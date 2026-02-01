@@ -1,0 +1,45 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowTerraformUserToManageBucketPolicy",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::899673281289:user/alen_aws"
+      },
+      "Action": [
+        "s3:GetBucketPolicy",
+        "s3:PutBucketPolicy",
+        "s3:DeleteBucketPolicy"
+      ],
+      "Resource": "arn:aws:s3:::policy-only-bucket-123456"
+    },
+    {
+      "Sid": "AllowTerraformUserObjectAccess",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::899673281289:user/alen_aws"
+      },
+      "Action": [
+        "s3:ListBucket",
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:DeleteObject"
+      ],
+      "Resource": [
+        "arn:aws:s3:::policy-only-bucket-123456",
+        "arn:aws:s3:::policy-only-bucket-123456/*"
+      ]
+    },
+    {
+      "Sid": "DenyAllOthers",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": "s3:*",
+      "Resource": [
+        "arn:aws:s3:::policy-only-bucket-123456",
+        "arn:aws:s3:::policy-only-bucket-123456/*"
+      ]
+    }
+  ]
+}
